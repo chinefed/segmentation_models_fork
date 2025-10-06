@@ -1,5 +1,5 @@
 import copy
-import efficientnet.model as eff
+import keras.applications as apps
 from classification_models.models_factory import ModelsFactory
 
 from . import inception_resnet_v2 as irv2
@@ -76,14 +76,14 @@ class BackbonesFactory(ModelsFactory):
         'inceptionresnetv2': [irv2.InceptionResNetV2, irv2.preprocess_input],
         'inceptionv3': [iv3.InceptionV3, iv3.preprocess_input],
 
-        'efficientnetb0': [eff.EfficientNetB0, eff.preprocess_input],
-        'efficientnetb1': [eff.EfficientNetB1, eff.preprocess_input],
-        'efficientnetb2': [eff.EfficientNetB2, eff.preprocess_input],
-        'efficientnetb3': [eff.EfficientNetB3, eff.preprocess_input],
-        'efficientnetb4': [eff.EfficientNetB4, eff.preprocess_input],
-        'efficientnetb5': [eff.EfficientNetB5, eff.preprocess_input],
-        'efficientnetb6': [eff.EfficientNetB6, eff.preprocess_input],
-        'efficientnetb7': [eff.EfficientNetB7, eff.preprocess_input],
+        'efficientnetb0': [apps.EfficientNetB0, apps.efficientnet.preprocess_input],
+        'efficientnetb1': [apps.EfficientNetB1, apps.efficientnet.preprocess_input],
+        'efficientnetb2': [apps.EfficientNetB2, apps.efficientnet.preprocess_input],
+        'efficientnetb3': [apps.EfficientNetB3, apps.efficientnet.preprocess_input],
+        'efficientnetb4': [apps.EfficientNetB4, apps.efficientnet.preprocess_input],
+        'efficientnetb5': [apps.EfficientNetB5, apps.efficientnet.preprocess_input],
+        'efficientnetb6': [apps.EfficientNetB6, apps.efficientnet.preprocess_input],
+        'efficientnetb7': [apps.EfficientNetB7, apps.efficientnet.preprocess_input],
     }
 
     # currently not supported
