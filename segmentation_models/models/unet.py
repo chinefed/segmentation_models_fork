@@ -3,6 +3,7 @@ from keras_applications import get_submodules_from_kwargs
 from ._common_blocks import Conv2dBn
 from ._utils import freeze_model, filter_keras_submodules
 from ..backbones.backbones_factory import Backbones
+from ..backbones.backbones_factory import NEW_APPLICATIONS
 
 backend = None
 layers = None
@@ -219,13 +220,21 @@ def Unet(
         raise ValueError('Decoder block type should be in ("upsampling", "transpose"). '
                          'Got: {}'.format(decoder_block_type))
 
-    backbone = Backbones.get_backbone(
-        backbone_name,
-        input_shape=input_shape,
-        weights=encoder_weights,
-        include_top=False,
-        **kwargs,
-    )
+    if backbone_name in NEW_APPLICATIONS:
+        backbone = Backbones.get_backbone(
+            backbone_name,
+            input_shape=input_shape,
+            weights=encoder_weights,
+            include_top=False
+        )
+    else:
+        backbone = Backbones.get_backbone(
+            backbone_name,
+            input_shape=input_shape,
+            weights=encoder_weights,
+            include_top=False,
+            **kwargs
+        )
 
     if encoder_features == 'default':
         encoder_features = Backbones.get_feature_layers(backbone_name, n=4)

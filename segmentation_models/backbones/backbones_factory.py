@@ -6,6 +6,13 @@ from . import inception_resnet_v2 as irv2
 from . import inception_v3 as iv3
 
 
+NEW_APPLICATIONS = [
+    'efficientnetb0', 'efficientnetb1', 'efficientnetb2', 'efficientnetb3',
+    'efficientnetb4', 'efficientnetb5', 'efficientnetb6', 'efficientnetb7',
+    'efficientnetv2m'
+]
+
+
 class BackbonesFactory(ModelsFactory):
     _default_feature_layers = {
 
@@ -70,12 +77,13 @@ class BackbonesFactory(ModelsFactory):
         'efficientnetb7': ('block6a_expand_activation', 'block4a_expand_activation',
                            'block3a_expand_activation', 'block2a_expand_activation'),
 
+        'efficientnetv2m': ('block6a_expand_conv', 'block4a_expand_conv', 'block2e_add', 'block1c_add')
+
     }
 
     _models_update = {
         'inceptionresnetv2': [irv2.InceptionResNetV2, irv2.preprocess_input],
         'inceptionv3': [iv3.InceptionV3, iv3.preprocess_input],
-
         'efficientnetb0': [apps.EfficientNetB0, apps.efficientnet.preprocess_input],
         'efficientnetb1': [apps.EfficientNetB1, apps.efficientnet.preprocess_input],
         'efficientnetb2': [apps.EfficientNetB2, apps.efficientnet.preprocess_input],
@@ -84,6 +92,7 @@ class BackbonesFactory(ModelsFactory):
         'efficientnetb5': [apps.EfficientNetB5, apps.efficientnet.preprocess_input],
         'efficientnetb6': [apps.EfficientNetB6, apps.efficientnet.preprocess_input],
         'efficientnetb7': [apps.EfficientNetB7, apps.efficientnet.preprocess_input],
+        'efficientnetv2m': [apps.EfficientNetV2M, apps.efficientnet_v2.preprocess_input]
     }
 
     # currently not supported

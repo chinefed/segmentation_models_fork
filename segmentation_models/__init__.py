@@ -108,6 +108,7 @@ from . import metrics
 from . import utils
 
 # wrap segmentation models with framework modules
+from .backbones.backbones_factory import NEW_APPLICATIONS
 from .backbones.backbones_factory import Backbones
 from .models.unet import Unet as _Unet
 from .models.pspnet import PSPNet as _PSPNet
@@ -123,8 +124,9 @@ get_available_backbone_names = Backbones.models_names
 
 def get_preprocessing(name):
     preprocess_input = Backbones.get_preprocessing(name)
-    # add bakcend, models, layers, utils submodules in kwargs
-    preprocess_input = inject_global_submodules(preprocess_input)
+    # add backend, models, layers, utils submodules in kwargs
+    if name not in NEW_APPLICATIONS:
+        preprocess_input = inject_global_submodules(preprocess_input)
     # delete other kwargs
     # keras-applications preprocessing raise an error if something
     # except `backend`, `layers`, `models`, `utils` passed in kwargs
